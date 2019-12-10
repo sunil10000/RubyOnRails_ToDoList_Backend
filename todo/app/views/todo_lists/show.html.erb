@@ -1,0 +1,19 @@
+<h2> Title:<%= @todo_list.title %> </h2>
+<p>  Description: <%= @todo_list.description %> </p>
+<%= link_to 'Back', todo_lists_path %>
+
+<%= form_for([@todo_list, @todo_list.todo_items.build]) do |form| %>
+ <%= form.text_field :content, placeholder: "New Todo" %>
+ <%= form.submit %>
+<% end %>
+
+<h3> All Todo Items </h3>
+<table>
+<%= @todo_list.todo_items.each do |todo_item| %>
+<tr>
+    <td> <p> todo_item.content </p> </td>
+    <td> <%= link_to 'Edit', edit_todo_list_todo_item_path(@todo_list, todo_item.id) %> </td>
+    <td> <%= button_to 'Destroy', todo_list_todo_item_path(@todo_list, todo_item.id), method: :delete, data: {confirm: 'Are you sure?'} %> </td>
+</tr>
+<% end %>
+</table>
